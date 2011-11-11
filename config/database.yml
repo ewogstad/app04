@@ -43,13 +43,13 @@ test:
   encoding: unicode
   database: app04_test
   pool: 5
-  username: app04
-  password:
+  username: postgres
+  password: downhome
 
 production:
   adapter: postgresql
   encoding: unicode
   database: app04_production
   pool: 5
-  username: app04
-  password:
+  username: postgres
+  password: downhome
