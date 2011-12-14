@@ -172,7 +172,7 @@ describe UsersController do
     end
     it "should have a link to change the Gravatar" do
       get :edit, :id => @user
-      gravatar_url = "http://gravatar.com/emails"
+      gravatar_url = "http://www.gravatar.com/emails"
       response.should have_selector("a", :href => gravatar_url,
                                          :content => "change")
     end
@@ -264,16 +264,33 @@ describe UsersController do
         delete :destroy, :id => @user
         response.should redirect_to(root_path)
       end
+      it "should not have a 'delete' link" do
+        get :index
+        response.should_not have_selector("a", :content => "delete")
+      end
     end
     describe "as an admin user" do
       before(:each) do
         admin = Factory(:user, :email => "admin@example.com", :admin => true)
         test_sign_in(admin)
       end
+      it "should have a 'delete' link" do
+        get :index
+        response.should have_selector("a", :content => "delete")
+      end
       it "should destroy the user" do
         lambda do
-          delete :destroy, :id => @user
-        end.should change(User, :count).by(-1)
+          if not @user.admin?
+            delete :destroy, :id => @user
+          end.should change(User, :count).by(-1)
+        end
+      end
+      it "should prevent admin user from destroying self" do
+        lambda do
+          if @user.admin?
+            delete :destroy, "id => @admin"
+          end.should_not change(User, :count)
+        end
       end
       it "should redirect to the users page" do
         delete :destroy, :id => @user
