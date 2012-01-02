@@ -66,4 +66,10 @@ describe "Users" do
       end
     end
   end
+  describe "relationships" do
+    before(:each) do
+      @user = User.create!(@attr)
+      @followed = Factory(:user)
+    end
+  end
 end

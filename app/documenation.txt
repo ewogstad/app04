@@ -1,0 +1,15 @@
+DOCUMENTATION NOTES
+
+Departures from hartl tutorial
+
+RE: Problem implementing Ajax for follow/unfollow buttons
+    From StackOverflow.com
+    http://stackoverflow.com/questions/6156815/button-doesnt-update-in-ajax-rails-tutorial-3-at-12-2-5
+    Change application.html.erb file
+        Change from
+        <%= javascript_include_tag :defaults %>
+        to
+        <%= javascript_include_tag 'prototype' %>
+    another helpful link:  http://getsatisfaction.com/railstutorial/topics/ajax_follow_button_not_working_in_section_12
+    Explanation:  changes from Rails 3.0 to 3.1.1  Eventually, Rails community is moving
+    away from Prototype to jQuery
